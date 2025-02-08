@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Druk';
+  src: url('https://db.onlinewebfonts.com/t/2206d6cc490084998d531e8c1b2cbb4a.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white;
+    font-family: 'Druk', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .noise-texture {
+    position: relative;
+  }
+  
+  .noise-texture::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.18;
+    mix-blend-mode: soft-light;
+    pointer-events: none;
+  }
+
+  .distressed {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .distressed::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='roughFilter'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.3' numOctaves='4'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23roughFilter)'/%3E%3C/svg%3E");
+    opacity: 0.25;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  .grain {
+    position: relative;
+  }
+
+  .grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grainFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grainFilter)'/%3E%3C/svg%3E");
+    opacity: 0.15;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+
+  .red-box {
+    @apply bg-[#FF2D20];
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 99% 99%, 1% 100%);
+  }
+
+  .red-box::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 100%);
+    mix-blend-mode: multiply;
+  }
+
+  .artist-label {
+    @apply bg-[#FF2D20] text-white px-4 py-1.5 text-sm font-bold;
+    clip-path: polygon(0 0, 100% 0, 97% 100%, 3% 100%);
+  }
+
+  .release-card {
+    @apply bg-black/20 backdrop-blur-sm;
+    border: 1px solid rgba(255,255,255,0.1);
+    clip-path: polygon(0 0, 100% 0, 99.5% 99%, 0.5% 100%);
+  }
+
+  .nav-dots {
+    @apply flex gap-3 mt-8;
+  }
+
+  .nav-dot {
+    @apply w-2.5 h-2.5 rounded-full bg-white/20;
+  }
+
+  .nav-dot.active {
+    @apply bg-white;
+  }
+
+  .cutout-text {
+    background: linear-gradient(45deg, #FF2D20, #FF4D40);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+
+  .slide-content {
+    @apply absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500;
+  }
+
+  .slide-content.active {
+    @apply opacity-100;
+  }
+}
+
+.image-frame {
+  position: relative;
+  padding: 6px;
+  clip-path: polygon(0 0, 100% 0, 98.5% 98.5%, 1.5% 100%);
+}
+
+.image-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 3px solid #FF2D20;
+  transform: rotate(-1deg) scale(1.02);
+  z-index: 1;
+}
+
+.button-cutout {
+  clip-path: polygon(0 0, 100% 0, 97% 100%, 3% 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.button-cutout::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent);
+  mix-blend-mode: overlay;
+}
